@@ -127,3 +127,43 @@ iva@c9v:~/Documents/14 $ kubectl get secret
 NAME          TYPE                DATA   AGE
 domain-cert   kubernetes.io/tls   2      3m40s
 ```
+
+[докер образ для тренировок nettols](https://hub.docker.com/r/jrecord/nettools)
+
+```bash
+iva@c9v:~/Documents/14/kub/stage $ kubectl apply -f 30-nettols.yaml
+deployment.apps/mynettools unchanged
+iva@c9v:~/Documents/14/kub/stage $ kubectl get secret
+NAME              TYPE                DATA   AGE
+domain-cert       kubernetes.io/tls   2      110m
+testsecret-env    Opaque              2      65m
+testsecret-yaml   Opaque              1      65m
+iva@c9v:~/Documents/14/kub/stage $ kubectl get deploy
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+myapp        0/1     1            0           61m
+mynettools   1/1     1            1           53m
+iva@c9v:~/Documents/14/kub/stage $ kubectl get pod
+NAME                         READY   STATUS              RESTARTS   AGE
+myapp-6d5d74f76c-zcls8       0/1     ContainerCreating   0          61m
+mynettools-d58b87558-zsf5j   1/1     Running             0          5m24s
+iva@c9v:~/Documents/14/kub/stage $ kubectl exec -it mynettools-d58b87558-zsf5j -- bash
+[root@mynettools-d58b87558-zsf5j /]# echo $SECRET_USERNAME 
+admin
+[root@mynettools-d58b87558-zsf5j /]# echo $SECRET_PASSWORD 
+some_password
+[root@mynettools-d58b87558-zsf5j /]# cat /app/config.yaml  
+apiUrl: "https://secret.site.tt/api/v1"
+username: <admin>
+password: <some_password>
+[root@mynettools-d58b87558-zsf5j /]# cat etc/sec/         
+..2022_11_16_20_17_51.703413158/ tls.crt                          
+..data/                          tls.key                          
+[root@mynettools-d58b87558-zsf5j /]# cat etc/sec/tls.crt 
+-----BEGIN CERTIFICATE-----
+MIIFbTCCA1WgAwIBAgIUZtZT/6kqh7whUzEnxn5O7dcq950wDQYJKoZIhvcNAQEL
+BQAwRjELMAkGA1UEBhMCUlUxDzANBgNVBAgMBk1vc2NvdzEPMA0GA1UEBwwGTW9z
+Y293MRUwEwYDVQQDDAxzZXJ2ZXIubG9jYWwwHhcNMjIxMTE2MTc1MzI5WhcNMzIx
+<cut></cut>
+5w==
+-----END CERTIFICATE-----
+[root@mynettools-d58b87558-zsf5j /]# 
