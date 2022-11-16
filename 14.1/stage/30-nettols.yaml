@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mynettools
+  labels:
+    app: mynettools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appnettols
+  template:
+    metadata:
+      labels:
+        app: appnettols
+    spec:
+      containers:
+        - name: nettools
+          image: jrecord/nettools:latest
+          command:
+            - sleep
+            - "3600"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SECRET_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: testsecret-env
+                  key: username
+            - name: SECRET_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: testsecret-env
+                  key: password
+            - name: DOMAIN_SERT
+              valueFrom:
+                secretKeyRef:
+                  name: domain-cert
+                  key: tls.crt
+          volumeMounts:
+            - name: test-secrets
+              mountPath: "/app"
+              readOnly: true
+            - name: secvol
+              mountPath: "/etc/sec"
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      volumes:
+        - name: test-secrets
+          secret:
+            secretName: testsecret-yaml
+        - name: secvol
+          secret:
+            secretName: domain-cert
