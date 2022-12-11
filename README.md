@@ -14,16 +14,16 @@
 
 14.2. [x] [Синхронизация секретов с внешними сервисами. Vault](14.2.md)
 
-14.3. [] [Карты конфигураций](14.3.md)
+14.3. [x] [Карты конфигураций](14.3.md)
 
-14.4. [Сервис-аккаунты](14.4.md)
+14.4. [x] [Сервис-аккаунты](14.4.md)
 
-14.5. [SecurityContext, NetworkPolicies](14.5.md)
+14.5. [] [SecurityContext, NetworkPolicies](14.5.md)
 
 
 ## Блок 15. Организация проекта при помощи облачных провайдеров
 
-15.1. [Организация сети](https://github.com/netology-code/clokub-homeworks/blob/main/15.1/README.md)
+15.1. [] [Организация сети](https://github.com/netology-code/clokub-homeworks/blob/main/15.1/README.md)
 
 15.2. [Вычислительные мощности. Балансировщики нагрузки](https://github.com/netology-code/clokub-homeworks/blob/main/15-2.md)
 
