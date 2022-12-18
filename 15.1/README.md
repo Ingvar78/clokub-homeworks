@@ -168,6 +168,171 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
 ```
 
+```
+
+iva@c9v:~/Documents/15 $ terraform plan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_compute_instance.natgw will be created
+  + resource "yandex_compute_instance" "natgw" {
+      + allow_stopping_for_update = true
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = "ngw.netology.yc"
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: ansible
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh-authorized-keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCoIlqTa8IYoXlkfdGZroeEOf<cut>
+                
+            EOT
+        }
+      + name                      = "natgw"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v3"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = "ru-central1-a"
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd80mrhj8fl2oe87o4e1"
+              + name        = "natgw254"
+              + size        = 10
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = "192.168.10.254"
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + placement_group_id = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 2
+          + memory        = 1
+        }
+
+      + scheduling_policy {
+          + preemptible = true
+        }
+    }
+
+  # yandex_vpc_network.default will be created
+  + resource "yandex_vpc_network" "default" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "empty"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_network.subnet_pub will be created
+  + resource "yandex_vpc_network" "subnet_pub" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "public"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_subnet.subnet_pub will be created
+  + resource "yandex_vpc_subnet" "subnet_pub" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "public"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "192.168.10.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+
+
+iva@c9v:~ $ ssh ansible@51.250.0.159
+Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.15.0-29-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+New release '20.04.5 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+
+#################################################################
+This instance runs Yandex.Cloud Marketplace product
+Please wait while we configure your product...
+
+Documentation for Yandex Cloud Marketplace images available at https://cloud.yandex.ru/docs
+
+#################################################################
+
+Last login: Sun Dec 18 21:53:33 2022 from 95.31.137.252
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+ansible@ngw:~$ ping google.com
+PING google.com (172.217.169.206) 56(84) bytes of data.
+64 bytes from sof02s34-in-f14.1e100.net (172.217.169.206): icmp_seq=1 ttl=61 time=65.6 ms
+64 bytes from sof02s34-in-f14.1e100.net (172.217.169.206): icmp_seq=2 ttl=61 time=65.4 ms
+64 bytes from sof02s34-in-f14.1e100.net (172.217.169.206): icmp_seq=3 ttl=61 time=65.3 ms
+64 bytes from sof02s34-in-f14.1e100.net (172.217.169.206): icmp_seq=4 ttl=61 time=65.3 ms
+^C
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3004ms
+rtt min/avg/max/mdev = 65.334/65.435/65.602/0.101 ms
+ansible@ngw:~$ 
+
+```
+
 ## Задание 2*. AWS (необязательное к выполнению)
 
 1. Создать VPC.
