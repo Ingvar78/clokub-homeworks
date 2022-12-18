@@ -24,6 +24,150 @@ Resource terraform для ЯО
 - [Route table](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_route_table)
 - [Compute Instance](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/compute_instance)
 ---
+
+## Решение Задания 1.
+
+```
+iva@c9v:~/Documents/15 $ cat versions.tf 
+terraform {
+  required_providers {
+    yandex = {
+      source = "terraform-registry.storage.yandexcloud.net/yandex-cloud/yandex"
+    }
+  }
+
+  backend "s3" {
+    endpoint                    = "storage.yandexcloud.net"
+    bucket                      = "neto-ingvar78"
+    region                      = "us-east-1"
+    key                         = "terraform.tfstate"
+    skip_region_validation      = true
+    skip_credentials_validation = true
+  }
+
+  required_version = ">= 1.1"
+}
+
+iva@c9v:~/Documents/15 $ terraform --version
+Terraform v1.3.6
+on linux_amd64
++ provider terraform-registry.storage.yandexcloud.net/yandex-cloud/yandex v0.72.0
+
+```
+
+```
+iva@c9v:~/Documents/15 $ terraform plan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_vpc_network.default will be created
+  + resource "yandex_vpc_network" "default" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "empty"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_network.subnet_pub will be created
+  + resource "yandex_vpc_network" "subnet_pub" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "public"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_subnet.subnet_pub will be created
+  + resource "yandex_vpc_subnet" "subnet_pub" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "public"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "192.168.10.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+iva@c9v:~/Documents/15 $ terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_vpc_network.default will be created
+  + resource "yandex_vpc_network" "default" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "empty"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_network.subnet_pub will be created
+  + resource "yandex_vpc_network" "subnet_pub" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "public"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_subnet.subnet_pub will be created
+  + resource "yandex_vpc_subnet" "subnet_pub" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "public"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "192.168.10.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+yandex_vpc_network.default: Creating...
+yandex_vpc_network.subnet_pub: Creating...
+yandex_vpc_network.default: Creation complete after 2s [id=enpsmuh4cst4c5te366s]
+yandex_vpc_network.subnet_pub: Creation complete after 2s [id=enp54lgte3ti0o2rcplb]
+yandex_vpc_subnet.subnet_pub: Creating...
+yandex_vpc_subnet.subnet_pub: Creation complete after 1s [id=e9bkqkj8v31qhdutal2d]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+
+```
+
 ## Задание 2*. AWS (необязательное к выполнению)
 
 1. Создать VPC.

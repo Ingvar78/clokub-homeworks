@@ -1,0 +1,10 @@
+yc_cloud_id              = "b1gos10ashr7cgusvgg9"
+yc_folder_id             = "b1gm6im3mcuc36r6kn8s"
+yc_zone                  = "ru-central1-a"
+service_account_key_file = "../YC/tf_sa_key.json"
+meta_file                = "../YC/metadata.txt"
+sa_id                    = "neto-robot"
+pub_key_path             = "~/.ssh/id_rsa.pub"
+priv_key_path            = "~/.ssh/id_rsa"
+#access_key              = "" //передаются через export
+#secret_key              = ""
