@@ -39,3 +39,8 @@ variable "priv_key_path" {
 variable "meta_file" {
   description = "Metadata file for ssh"
 }
+
+
+variable "centos-7-base" {
+  default = "fd8jvcoeij6u9se84dt5"
+}

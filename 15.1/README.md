@@ -23,6 +23,7 @@ Resource terraform для ЯО
 - [VPC subnet](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_subnet)
 - [Route table](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_route_table)
 - [Compute Instance](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/compute_instance)
+- [Маршрутизация с помощью NAT-инстанса](https://cloud.yandex.ru/docs/vpc/tutorials/nat-instance#create-nat-instance)
 ---
 
 ## Решение Задания 1.
