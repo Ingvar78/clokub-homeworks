@@ -415,11 +415,13 @@ ansible@ngw:~/.ssh$ exit
 
 <details>
     <summary>Скриншоты задачи 1</summary>
-    
 
-![](./Img/Route-to-nat.png)
-![](./Img/Route-to-nat-yc01.png)
-![](./Img/Route-to-nat-yc.png)
+
+![](./img/Route-to-nat.png)
+
+![](./img/Route-to-nat-yc01.png)
+
+![](./img/Route-to-nat-yc.png)
 
 
 </details>
