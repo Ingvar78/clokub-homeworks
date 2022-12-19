@@ -28,6 +28,11 @@ Resource terraform для ЯО
 
 ## Решение Задания 1.
 
+[terraform](./Terraform/)
+
+<details>
+    <summary>Решение задачи 1</summary>
+
 ```
 iva@c9v:~/Documents/15 $ cat versions.tf 
 terraform {
@@ -333,6 +338,93 @@ rtt min/avg/max/mdev = 65.334/65.435/65.602/0.101 ms
 ansible@ngw:~$ 
 
 ```
+
+```
+va@c9v:~ $ ssh ansible@51.250.65.175
+Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.15.0-29-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+New release '20.04.5 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+
+#################################################################
+This instance runs Yandex.Cloud Marketplace product
+Please wait while we configure your product...
+
+Documentation for Yandex Cloud Marketplace images available at https://cloud.yandex.ru/docs
+
+#################################################################
+
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+ansible@ngw:~$ cd .ssh/
+ansible@ngw:~/.ssh$ chmod 600 id_rsa*
+ansible@ngw:~/.ssh$ ssh ansible@192.168.20.17
+The authenticity of host '192.168.20.17 (192.168.20.17)' can't be established.
+ECDSA key fingerprint is SHA256:K2n0oHXHiNL8lg/fCa0NOl/ZAH7ab09FKbBIHa6bKG8.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.20.17' (ECDSA) to the list of known hosts.
+[ansible@private ~]$ ping ya.ru
+PING ya.ru (87.250.250.242) 56(84) bytes of data.
+64 bytes from ya.ru (87.250.250.242): icmp_seq=1 ttl=56 time=25.8 ms
+64 bytes from ya.ru (87.250.250.242): icmp_seq=2 ttl=56 time=3.88 ms
+64 bytes from ya.ru (87.250.250.242): icmp_seq=3 ttl=56 time=3.85 ms
+64 bytes from ya.ru (87.250.250.242): icmp_seq=4 ttl=56 time=3.79 ms
+64 bytes from ya.ru (87.250.250.242): icmp_seq=5 ttl=56 time=3.82 ms
+^C
+--- ya.ru ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4007ms
+rtt min/avg/max/mdev = 3.791/8.237/25.843/8.803 ms
+[ansible@private ~]$ ip route
+default via 192.168.20.1 dev eth0 proto dhcp metric 100 
+192.168.20.0/24 dev eth0 proto kernel scope link src 192.168.20.17 metric 100 
+[ansible@private ~]$ ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.20.17  netmask 255.255.255.0  broadcast 192.168.20.255
+        inet6 fe80::d20d:62ff:feb5:d47d  prefixlen 64  scopeid 0x20<link>
+        ether d0:0d:62:b5:d4:7d  txqueuelen 100000  (Ethernet)
+        RX packets 412  bytes 38388 (37.4 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 422  bytes 37029 (36.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 70  bytes 6048 (5.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 70  bytes 6048 (5.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[ansible@private ~]$ exit
+logout
+Connection to 192.168.20.17 closed.
+ansible@ngw:~/.ssh$ exit
+
+```
+</details>
+
+
+
+<details>
+    <summary>Скриншоты задачи 1</summary>
+    
+
+![](./Img/Route-to-nat.png)
+![](./Img/Route-to-nat-yc01.png)
+![](./Img/Route-to-nat-yc.png)
+
+
+</details>
+
+
 
 ## Задание 2*. AWS (необязательное к выполнению)
 
