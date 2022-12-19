@@ -28,7 +28,8 @@ Resource terraform для ЯО
 
 ## Решение Задания 1.
 
-[terraform](./Terraform/)
+Файлы  [terraform](./Terraform/)
+
 
 <details>
     <summary>Решение задачи 1</summary>
