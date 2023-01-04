@@ -37,6 +37,6 @@ variable "service_account_key_file" {
   description = "../YC/tf_sa_key.json"
 }
 
-variable "lamp-image" {
+variable "lamp_image" {
   default = "fd827b91d99psvq5fjit"
 }

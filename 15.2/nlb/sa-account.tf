@@ -6,7 +6,7 @@ resource "yandex_iam_service_account" "sa-bucket" {
 // Выдаём права
 resource "yandex_resourcemanager_folder_iam_member" "sa-editor" {
     folder_id = var.yc_folder_id
-    role      = "storage.editor"
+    role      = "editor"
     member    = "serviceAccount:${yandex_iam_service_account.sa-bucket.id}"
     depends_on = [yandex_iam_service_account.sa-bucket]
 }
